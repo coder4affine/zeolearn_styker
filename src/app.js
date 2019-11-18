@@ -1,7 +1,7 @@
-const x = "Hello World";
+import React from "react";
 
-export const y = "world";
+const App = () => {
+  return <h1>Hello World</h1>;
+};
 
-export const z = "gudgaun";
-
-export default x;
+export default App;
