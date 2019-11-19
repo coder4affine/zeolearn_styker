@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import ErrorBoundary from './components/ErrorBoundary';
+import './index.css';
 
 ReactDOM.render(
   <ErrorBoundary>
-    <App label={20} type="text" value="" onChange={() => {}} placeholder="Enter Value" />
+    <App />
   </ErrorBoundary>,
   document.getElementById('root'),
 );

@@ -31,6 +31,12 @@ module.exports = {
         exclude: [path.resolve(__dirname, 'node_modules')],
         loader: 'awesome-typescript-loader',
       },
+      {
+        test: /.css$/,
+        include: [path.resolve(__dirname, 'src')],
+        exclude: [path.resolve(__dirname, 'node_modules')],
+        loader: ['style-loader', 'css-loader'],
+      },
     ],
   },
   resolve: {
