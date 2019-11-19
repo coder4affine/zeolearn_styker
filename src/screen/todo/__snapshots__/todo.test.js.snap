@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot of Todo Component Snapshot 1`] = `
+<div
+  id="todo"
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+      "height": "100vh",
+    }
+  }
+>
+  <Header
+    title="Todo App"
+  />
+  <Form
+    onAddTodo={[Function]}
+  />
+  <div
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <List
+      onDeleteTodo={[Function]}
+      onToggleComplete={[Function]}
+      todos={Array []}
+    />
+  </div>
+  <Footer
+    onSelect={[Function]}
+    select="all"
+  />
+</div>
+`;

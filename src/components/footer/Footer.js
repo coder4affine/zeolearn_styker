@@ -9,19 +9,19 @@ const Footer = ({ onSelect, select }) => {
         style={{ flex: 1, backgroundColor: select === 'all' ? 'green' : 'red' }}
         onClick={() => onSelect('all')}
       >
-        All
+        <span>All</span>
       </Button>
       <Button
         style={{ flex: 1, backgroundColor: select === 'pending' ? 'green' : 'red' }}
         onClick={() => onSelect('pending')}
       >
-        Pending
+        <span>Pending</span>
       </Button>
       <Button
         style={{ flex: 1, backgroundColor: select === 'completed' ? 'green' : 'red' }}
         onClick={() => onSelect('completed')}
       >
-        Completed
+        <span>Completed</span>
       </Button>
     </div>
   );
