@@ -17,14 +17,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "babel",
-    "react",
-    "import",
-    "jsx-a11y",
-    "react-hooks",
-    "prettier"
-  ],
+  "plugins": ["babel", "react", "import", "jsx-a11y", "react-hooks", "prettier"],
   "rules": {
     "react/jsx-filename-extension": [
       2,
@@ -32,6 +25,7 @@
         "extensions": [".js", ".jsx"]
       }
     ],
+    "react/state-in-constructor": [0],
     "prettier/prettier": ["error"]
   }
 }

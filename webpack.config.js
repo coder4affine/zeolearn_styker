@@ -1,40 +1,46 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: path.join(__dirname, "src", "index"),
+  mode: 'development',
+  entry: path.join(__dirname, 'src', 'index'),
   watch: true,
   output: {
-    path: path.join(__dirname, "dist"),
-    publicPath: "/dist/",
-    filename: "bundle.js",
-    chunkFilename: "[name].js"
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/dist/',
+    filename: 'bundle.js',
+    chunkFilename: '[name].js',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "./public/index.html"
-    })
+      filename: 'index.html',
+      template: './public/index.html',
+    }),
   ],
   module: {
     rules: [
       {
         test: /.jsx?$/,
-        include: [path.resolve(__dirname, "src")],
-        exclude: [path.resolve(__dirname, "node_modules")],
-        loader: "babel-loader"
-      }
-    ]
+        include: [path.resolve(__dirname, 'src')],
+        exclude: [path.resolve(__dirname, 'node_modules')],
+        loader: 'babel-loader',
+      },
+      {
+        test: /.tsx?$/,
+        include: [path.resolve(__dirname, 'src')],
+        exclude: [path.resolve(__dirname, 'node_modules')],
+        loader: 'awesome-typescript-loader',
+      },
+    ],
   },
   resolve: {
-    extensions: [".json", ".js", ".jsx"]
+    extensions: ['.json', '.js', '.jsx', '.ts', '.tsx'],
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   devServer: {
-    contentBase: path.join(__dirname, "/dist/"),
+    contentBase: path.join(__dirname, '/dist/'),
     inline: true,
-    host: "localhost",
-    port: 8080
-  }
+    host: 'localhost',
+    port: 8080,
+  },
 };
