@@ -1,123 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import Header from '../../components/header/Header';
 import Form from '../../components/form/Form';
 import List from '../../components/list/List';
 import Footer from '../../components/footer/Footer';
+import { TodoContext } from '../../context/todoContext';
 import './todo.css';
 
 const Todo = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [todos, setTodos] = useState([]);
   const [select, setSelect] = useState('all');
-
-  useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch('http://localhost:3004/todos');
-        const newTodos = await res.json();
-        setTodos(newTodos);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const copy = () => {
-      console.log('copied');
-    };
-
-    loadData();
-    document.addEventListener('copy', copy);
-
-    return () => {
-      document.removeEventListener('copy', copy);
-    };
-  }, []);
-
-  useEffect(() => {
-    console.log('useEffect 1');
-  }, [loading, error, select, todos]);
-
-  const onToggleComplete = async todo => {
-    setLoading(true);
-    try {
-      const updatedTodo = {
-        ...todo,
-        isDone: !todo.isDone,
-      };
-
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve();
-        }, 2000);
-      });
-
-      const res = await fetch(`http://localhost:3004/todos/${todo.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(updatedTodo),
-        headers: {
-          accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const newUpdatedTodo = await res.json();
-
-      const index = todos.findIndex(x => x.id === todo.id);
-      setTodos([...todos.slice(0, index), newUpdatedTodo, ...todos.slice(index + 1)]);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const onDeleteTodo = async todo => {
-    setLoading(true);
-    try {
-      await fetch(`http://localhost:3004/todos/${todo.id}`, {
-        method: 'DELETE',
-      });
-
-      const updatedTodos = todos.filter(x => x.id !== todo.id);
-      setTodos(updatedTodos);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const todoContext = useContext(TodoContext);
 
   const onSelect = val => {
     setSelect(val);
   };
 
-  const onAddTodo = async todo => {
-    setLoading(true);
-    try {
-      const res = await fetch('http://localhost:3004/todos', {
-        method: 'POST',
-        body: JSON.stringify({ text: todo, isDone: false }),
-        headers: {
-          accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const newTodo = await res.json();
-      setTodos([...todos, newTodo]);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const filteredTodos = () => {
-    return todos.filter(x => {
+    return todoContext.data.filter(x => {
       switch (select) {
         case 'pending':
           return !x.isDone;
@@ -141,14 +39,14 @@ const Todo = () => {
     >
       {/* implement Header */}
       <Header title="Todo App" />
-      {loading && <h1 style={{ textAlign: 'center' }}>Loading....</h1>}
-      {error && <h1 style={{ textAlign: 'center' }}>{error}</h1>}
-      <Form onAddTodo={onAddTodo} />
+      {todoContext.loading && <h1 style={{ textAlign: 'center' }}>Loading....</h1>}
+      {todoContext.error && <h1 style={{ textAlign: 'center' }}>{todoContext.error.message}</h1>}
+      <Form onAddTodo={todoContext.onAddTodo} />
       <div style={{ flex: 1 }}>
         <List
           todos={filteredTodos()}
-          onToggleComplete={onToggleComplete}
-          onDeleteTodo={onDeleteTodo}
+          onToggleComplete={todoContext.onToggleComplete}
+          onDeleteTodo={todoContext.onDeleteTodo}
         />
       </div>
       <Footer onSelect={onSelect} select={select} />
