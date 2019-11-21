@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TextInput from '../../components/textInput/TextInput';
 import MyForm from '../../components/myForm/MyForm';
 import { CHECK_AUTH, REQUEST } from '../../constants/actionTypes';
+import test from '../../HOC/test.hoc';
 
 const fields = [
   {
@@ -34,10 +35,12 @@ const fields = [
   },
 ];
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, onType, data }) => {
+  console.log(data);
   return (
     <div>
       <h1>Login Page</h1>
+      <input type="Text" onChange={e => onType(e.target.value)} />
       <MyForm
         fields={fields}
         onSubmit={onLogin}
@@ -66,4 +69,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(test(Login));
