@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { LocaleConsumer } from '../../context/localeContext';
 import styles from './style';
@@ -10,7 +10,6 @@ const Header = ({ title }) => {
       <h3>{title}</h3>
       <LocaleConsumer>
         {value => {
-          console.log('value');
           return (
             <div>
               <h1>{value.locale}</h1>
@@ -29,4 +28,4 @@ Header.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Header;
+export default memo(Header);

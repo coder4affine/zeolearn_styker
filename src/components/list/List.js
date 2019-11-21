@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button/Button';
 
 const List = ({ todos, onToggleComplete, onDeleteTodo }) => {
+  console.log('List');
   return (
     <>
       {todos.map(todo => (
@@ -30,4 +31,4 @@ List.propTypes = {
   onDeleteTodo: PropTypes.func.isRequired,
 };
 
-export default List;
+export default memo(List);

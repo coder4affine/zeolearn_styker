@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button/Button';
 
 const Footer = ({ onSelect, select }) => {
+  console.log('Footer');
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: 50 }}>
       <Button
@@ -32,4 +33,4 @@ Footer.propTypes = {
   select: PropTypes.string.isRequired,
 };
 
-export default Footer;
+export default memo(Footer);

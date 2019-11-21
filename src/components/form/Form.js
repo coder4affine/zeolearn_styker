@@ -1,12 +1,12 @@
 /* eslint-disable react/static-property-placement */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import TextInput from '../textInput/TextInput';
 import Button from '../button/Button';
 import styles from './styles';
 
-export default class Form extends Component {
+export default class Form extends PureComponent {
   text = '';
 
   static propTypes = {

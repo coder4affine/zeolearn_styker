@@ -21,6 +21,25 @@ export const TodoContextComponent = ({ children }) => {
     loadData();
   }, []);
 
+  const onAddTodo = async todo => {
+    dispatch({ type: 'ADD_TODO_REQUEST' });
+    try {
+      const res = await fetch('http://localhost:3004/todos', {
+        method: 'POST',
+        body: JSON.stringify({ text: todo, isDone: false }),
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const newTodo = await res.json();
+      dispatch({ type: 'ADD_TODO_SUCCESS', payload: newTodo });
+    } catch (err) {
+      dispatch({ type: 'ADD_TODO_FAILURE', payload: err });
+    }
+  };
+
   const onToggleComplete = async todo => {
     dispatch({ type: 'UPDATE_TODO_REQUEST' });
     try {
@@ -55,25 +74,6 @@ export const TodoContextComponent = ({ children }) => {
       dispatch({ type: 'DELETE_TODO_SUCCESS', payload: todo });
     } catch (err) {
       dispatch({ type: 'DELETE_TODO_FAILURE', payload: err });
-    }
-  };
-
-  const onAddTodo = async todo => {
-    dispatch({ type: 'ADD_TODO_REQUEST' });
-    try {
-      const res = await fetch('http://localhost:3004/todos', {
-        method: 'POST',
-        body: JSON.stringify({ text: todo, isDone: false }),
-        headers: {
-          accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const newTodo = await res.json();
-      dispatch({ type: 'ADD_TODO_SUCCESS', payload: newTodo });
-    } catch (err) {
-      dispatch({ type: 'ADD_TODO_FAILURE', payload: err });
     }
   };
 

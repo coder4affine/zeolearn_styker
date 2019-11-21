@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, memo } from 'react';
 import Header from '../../components/header/Header';
 import Form from '../../components/form/Form';
 import List from '../../components/list/List';
@@ -7,6 +7,8 @@ import { TodoContext } from '../../context/todoContext';
 import './todo.css';
 
 const Todo = () => {
+  console.log('Todo');
+
   const [select, setSelect] = useState('all');
   const todoContext = useContext(TodoContext);
 
@@ -54,7 +56,7 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default memo(Todo);
 
 // export default class Todo extends Component {
 //   state = {

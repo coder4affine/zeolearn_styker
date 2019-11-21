@@ -1,17 +1,30 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
-import styles from './styles';
+const useStyles = makeStyles(theme => ({
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+}));
 
-const TextInput = ({ style, forwardRed, ...props }) => {
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <input ref={forwardRed} style={{ ...styles.container, ...style }} {...props} />;
+const TextInput = ({ field, form: { touched, errors }, ...props }) => {
+  const classes = useStyles();
+  return (
+    <TextField
+      error={!!touched[field.name] && !!errors[field.name]}
+      helperText={errors[field.name]}
+      className={classes.textField}
+      margin="normal"
+      {...field}
+      {...props}
+    />
+  );
 };
 
-TextInput.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.object.isRequired,
-  forwardRed: PropTypes.func.isRequired,
-};
+TextInput.propTypes = {};
 
 export default TextInput;

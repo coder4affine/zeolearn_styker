@@ -1,4 +1,11 @@
 {
+  "users": [
+    {
+      "username": "yagnesh",
+      "password": "password",
+      "name": "yagnesh"
+    }
+  ],
   "todos": [
     {
       "text": "asdfads",
@@ -14,11 +21,6 @@
       "text": "asdf",
       "isDone": false,
       "id": 3
-    },
-    {
-      "text": "asdf",
-      "isDone": false,
-      "id": 4
     }
   ]
 }
