@@ -1,16 +1,22 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { takeLatest, put, call, all, fork } from 'redux-saga/effects';
 import { CHECK_AUTH, REQUEST, SUCCESS, FAILURE } from '../constants/actionTypes';
 import history from '../history';
 
-const todo = state => state.todo.data;
+// const todo = state => state.todo.data;
 
 function* checkAuth({ payload, meta }) {
-  console.log(meta);
   const { resetForm, setStatus, setSubmitting } = meta;
-  const data = yield select(todo);
-  console.log(data);
+  // const data = yield select(todo);
+  // console.log(data);
   try {
-    const res = yield call(fetch, 'http://localhost:3004/users');
+    const res = yield call(fetch, 'http://localhost:3004/users', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
     const users = yield res.json();
     const user = users.find(
       x => x.username === payload.username && x.password === payload.password,
@@ -21,7 +27,7 @@ function* checkAuth({ payload, meta }) {
         type: `${CHECK_AUTH}_${SUCCESS}`,
         payload: user,
       });
-      yield call(history.push, '/products');
+      yield call(history.push, 'products');
     } else {
       throw new Error('Authentication Fail');
     }
@@ -37,6 +43,10 @@ function* checkAuth({ payload, meta }) {
   }
 }
 
-export default function* rootAuth() {
+function* checkAuthRequest() {
   yield takeLatest(`${CHECK_AUTH}_${REQUEST}`, checkAuth);
+}
+
+export default function* rootSaga() {
+  yield all([fork(checkAuthRequest)]);
 }

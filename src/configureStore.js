@@ -11,4 +11,6 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMidd
 
 sagaMiddleware.run(rootSaga);
 
+store.dispatch({ type: 'SIGN_OUT' });
+
 export default store;

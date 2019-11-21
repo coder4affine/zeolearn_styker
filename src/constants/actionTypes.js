@@ -8,3 +8,4 @@ export const REQUEST = 'REQUEST';
 // export const UPDATE_TODO = 'UPDATE_TODO';
 
 export const CHECK_AUTH = 'CHECK_AUTH';
+export const SAVE_PRODUCT = 'SAVE_PRODUCT';
